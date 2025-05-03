@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Spinner from '../components/Spinner'
+import Spinner from '../components/Spinner';
 import BooksCard from '../components/home/BooksCard';
 import BooksTable from '../components/home/BooksTable';
 import Navbar from './NavBar';
 
 const Home = () => {
   const [books, setBooks] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true); // Start as true to show spinner on load
   const [showType, setShowType] = useState('table');
   const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    setLoading(true);
     axios
       .get(`${API_URL}/books`)
       .then((res) => {
@@ -29,9 +28,10 @@ const Home = () => {
     <div className="container-fluid min-vh-100 bg-parchment text-ink font-japanese p-4">
       <Navbar showType={showType} setShowType={setShowType} />
       <div className="mt-4">
-        {/* Conditional rendering based on loading state */}
         {loading ? (
-          <Spinner />  
+          <Spinner />
+        ) : books.length === 0 ? (
+          <p className="text-center text-muted">No books available. Add one to get started.</p>
         ) : showType === 'table' ? (
           <BooksTable books={books} />
         ) : (
