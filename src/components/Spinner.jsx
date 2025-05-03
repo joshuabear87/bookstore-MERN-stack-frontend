@@ -1,11 +1,22 @@
-import React from 'react'
+import React from 'react';
 
 const Spinner = () => {
   return (
-    <div className="flex justify-center items-top h-screen">
-      <div className='animate-ping w-16 h-16 m-8 rounded-full bg-green-600'></div>
+    <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '200px' }}>
+      <div
+        className="spinner-border"
+        role="status"
+        style={{
+          width: '3rem',
+          height: '3rem',
+          borderColor: '#c8d8c2',
+          borderRightColor: 'transparent'
+        }}
+      >
+        <span className="visually-hidden">Loading...</span>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Spinner
+export default Spinner;
