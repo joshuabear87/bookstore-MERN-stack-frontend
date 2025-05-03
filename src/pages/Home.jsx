@@ -7,24 +7,22 @@ import Navbar from './NavBar';
 
 const Home = () => {
   const [books, setBooks] = useState([]);
-  const [loading, setLoading] = useState(true); // Start as true to show spinner on load
+  const [loading, setLoading] = useState(true);
   const [showType, setShowType] = useState('table');
   const API_URL = import.meta.env.VITE_API_URL;
+
+  console.log('API_URL:', API_URL);
 
   useEffect(() => {
     if (!API_URL) return;
 
     setLoading(true);
 
-    // Step 1: Ping the backend to wake up Render server
     axios
-      .get(`${API_URL}/ping`)
-      .then(() => {
-        // Step 2: Fetch books after the server is awake
-        return axios.get(`${API_URL}/books`);
-      })
+      .get(`${API_URL}/ping`) // pings https://.../books/ping
+      .then(() => axios.get(API_URL)) // fetches https://.../books
       .then((res) => {
-        setBooks(res.data.data);
+        setBooks(res.data.data || []);
         setLoading(false);
       })
       .catch((err) => {
