@@ -12,14 +12,23 @@ const Home = () => {
   const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
+    if (!API_URL) return;
+
+    setLoading(true);
+
+    // Step 1: Ping the backend to wake up Render server
     axios
-      .get(`${API_URL}/books`)
+      .get(`${API_URL}/ping`)
+      .then(() => {
+        // Step 2: Fetch books after the server is awake
+        return axios.get(`${API_URL}/books`);
+      })
       .then((res) => {
         setBooks(res.data.data);
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        console.error('Error fetching books:', err);
         setLoading(false);
       });
   }, [API_URL]);
@@ -29,7 +38,10 @@ const Home = () => {
       <Navbar showType={showType} setShowType={setShowType} />
       <div className="mt-4">
         {loading ? (
-          <Spinner />
+          <div className="text-center">
+            <Spinner />
+            <p className="mt-2 text-muted small">Waking up the server... please wait</p>
+          </div>
         ) : books.length === 0 ? (
           <p className="text-center text-muted">No books available. Add one to get started.</p>
         ) : showType === 'table' ? (
