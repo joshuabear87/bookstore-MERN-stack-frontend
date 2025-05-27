@@ -2,7 +2,7 @@
 
 **Yomimono** (読み物) means "reading material" in Japanese. This elegant, parchment-themed React frontend is part of a full-stack MERN application for managing a personal book collection. Featuring Japanese aesthetic inspirations and intuitive UI, Yomimono lets you add, view, edit, and delete books with ease.
 
-![Yomimono Preview](./frontend/public/yomimono-preview.png)
+![Yomimono Preview](./public/yomimono-preview.png)
 
 ---
 
