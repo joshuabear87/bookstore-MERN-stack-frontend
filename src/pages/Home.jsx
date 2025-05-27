@@ -19,8 +19,8 @@ const Home = () => {
     setLoading(true);
 
     axios
-      .get(`${API_URL}/ping`) // pings https://.../books/ping
-      .then(() => axios.get(API_URL)) // fetches https://.../books
+      .get(`${API_URL}/ping`)
+      .then(() => axios.get(API_URL))
       .then((res) => {
         setBooks(res.data.data || []);
         setLoading(false);
